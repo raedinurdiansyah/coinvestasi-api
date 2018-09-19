@@ -248,13 +248,9 @@ class Cache
                     $this->resource->setMemcache($config['driver']);
                 } elseif ($config['driver'] instanceof \Memcached) {
                     $this->config['driver'] = self::MEMCACHED;
-                    $this->resource = new $this->config['driver'];
+                    $this->resource         = new $this->config['driver'];
                     $this->resource->setMemCached($config['driver']);
-                } /** @noinspection PhpUnnecessaryFullyQualifiedNameInspection
-                 *                PhpUndefinedClassInspection
-                 *                PhpUndefinedNamespaceInspection
-                 */
-                elseif (interface_exists('\\Predis\\ClientInterface')
+                } elseif (interface_exists('\\Predis\\ClientInterface')
                     && $config['driver'] instanceof \Predis\ClientInterface
                 ) {
                     $this->config['driver'] = self::PREDIS;
@@ -263,20 +259,15 @@ class Cache
                     && $config['driver'] instanceof \Redis
                 ) {
                     $this->config['driver'] = self::REDIS;
-                    $this->resource = new $this->config['driver'];
+                    $this->resource         = new $this->config['driver'];
                     $this->resource->setRedis($config['driver']);
-                } /** @noinspection PhpUndefinedClassInspection */
-                elseif (class_exists('\\Couchbase')
+                } elseif (class_exists('\\Couchbase')
                     && $config['driver'] instanceof \Couchbase
                 ) {
                     $this->config['driver'] = self::COUCH_BASE;
                     $this->resource = new $this->config['driver'];
                     $this->resource->setCouchbase($config['driver']);
-                } /** @noinspection PhpUnnecessaryFullyQualifiedNameInspection
-                 *                PhpUndefinedClassInspection
-                 *                PhpUndefinedNamespaceInspection
-                 */
-                elseif (class_exists('\\Riak\\Bucket')
+                } elseif (class_exists('\\Riak\\Bucket')
                     && $config['driver'] instanceof \Riak\Bucket
                 ) {
                     $this->config['driver'] = self::RIAK;

@@ -18,6 +18,11 @@ class Extension extends ArrayExtension
     protected $api;
 
     /**
+     * @var string
+     */
+    protected $routeGroupPrefix;
+
+    /**
      * {@inheritdoc}
      */
     final public function __construct(
@@ -30,9 +35,11 @@ class Extension extends ArrayExtension
             );
         }
         $this->api = $api;
+        $class = explode('\\', trim(get_class($this), '\\'));
+        $class = array_pop($class);
+        $this->routeGroupPrefix = strtolower($class);
         parent::__construct($info);
     }
-
 
     /**
      * Register Autoloader

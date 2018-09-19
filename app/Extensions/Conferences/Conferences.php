@@ -3,14 +3,15 @@ declare(strict_types=1);
 
 namespace ArrayIterator\Coinvestasi\Extensions;
 
-use ArrayIterator\Coinvestasi\Core\Extension;
+use ArrayIterator\Coinvestasi\Core\AddOnExtension;
+use ArrayIterator\Coinvestasi\Core\Application;
 use ArrayIterator\Extension\ExtensionInfo;
 
 /**
  * Class Conferences
  * @package ArrayIterator\Coinvestasi\Extensions
  */
-class Conferences extends Extension
+class Conferences extends AddOnExtension
 {
     /**
      * @var string
@@ -25,10 +26,12 @@ class Conferences extends Extension
     /**
      * @param ExtensionInfo $info
      */
-    protected function onConstruct(ExtensionInfo $info)
+    protected function onAfterConstruct(ExtensionInfo $info)
     {
-        parent::onConstruct($info);
-        $this->prepare();
+    }
+
+    public function addRouteGroup(Application $a)
+    {
     }
 
     /**

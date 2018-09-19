@@ -39,7 +39,7 @@ $this->add(function (S $request, R $response, callable $next) {
         $this['extension']->getAllAvailableExtensions()
     );
     return $next(
-        $request->withHeader(
+        $request->withAddedHeader(
             'Content-Type',
             'application/json;charset=utf-8'
         )->withHeader(

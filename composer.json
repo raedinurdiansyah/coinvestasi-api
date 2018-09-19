@@ -2,6 +2,7 @@
   "name": "arrayiterator/coinvestasi-api",
   "require": {
     "php": "^7.1",
+    "ext-json": "*",
     "slim/slim": "^3.0",
     "guzzlehttp/guzzle": "^6",
     "wa72/htmlpagedom": "^1.3",
