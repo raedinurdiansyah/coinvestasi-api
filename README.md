@@ -2,7 +2,8 @@
 
 ## CREATING EXTENSION
 
-
+Extension must be extend as :
+`ArrayIterator\Coinvestasi\Core\AddOnExtension` object class
 
 ## NOTE CONFIG
 

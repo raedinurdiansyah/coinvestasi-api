@@ -11,7 +11,7 @@ use Slim\RouteGroup;
  * @package ArrayIterator\Coinvestasi\Core
  * @method mixed addRouteGroup(Application $app)
  */
-class AddOnExtension extends Extension
+abstract class AddOnExtension extends Extension
 {
     /**
      * @var RouteGroup

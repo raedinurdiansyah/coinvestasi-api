@@ -10,7 +10,7 @@ use ArrayIterator\Extension\ExtensionInfo;
  * Class Extension
  * @package ArrayIterator\Coinvestasi\Core
  */
-class Extension extends ArrayExtension
+abstract class Extension extends ArrayExtension
 {
     /**
      * @var ApiGroup
