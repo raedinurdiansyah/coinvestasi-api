@@ -33,7 +33,7 @@ abstract class AddOnExtension extends Extension
         $this->registerObjectAutoloader();
         if (method_exists($this, 'addRouteGroup')) {
             $this->routeGroupObject = $this->api->group(
-                '/'.$this->routeGroupPrefix,
+                '/'.$this->routeGroupPrefix.'/',
                 [$this, 'addRouteGroup']
             );
         }

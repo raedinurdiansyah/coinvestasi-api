@@ -11,7 +11,7 @@ use Doctrine\Common\Cache\MemcachedCache;
 use Doctrine\Common\Cache\PhpFileCache;
 use Doctrine\Common\Cache\RedisCache;
 use Doctrine\Common\Cache\RiakCache;
-use NusaRaya\Api\CacheDriver\DatabaseCache;
+use ArrayIterator\Coinvestasi\Core\CacheDriver\DatabaseCache;
 
 /**
  * Class Cache
