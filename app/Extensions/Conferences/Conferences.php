@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace ArrayIterator\Coinvestasi\Extensions;
+namespace ArrayIterator\Coinvestasi\Extensions\Conferences;
 
 use ArrayIterator\Coinvestasi\Core\AddOnExtension;
 use ArrayIterator\Coinvestasi\Core\Application;
@@ -9,7 +9,7 @@ use ArrayIterator\Extension\ExtensionInfo;
 
 /**
  * Class Conferences
- * @package ArrayIterator\Coinvestasi\Extensions
+ * @package ArrayIterator\Coinvestasi\Extensions\Conferences
  */
 class Conferences extends AddOnExtension
 {

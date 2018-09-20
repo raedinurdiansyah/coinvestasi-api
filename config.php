@@ -8,6 +8,7 @@ return [
         "password" => "",
         "name" => "api_coinvestasi"
     ],
+    'displayErrorDetails' => true,
     "cache" => [
         "driver" => "",
     ]
