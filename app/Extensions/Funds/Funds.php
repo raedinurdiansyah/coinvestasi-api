@@ -10,7 +10,6 @@ use ArrayIterator\Extension\ExtensionInfo;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-
 class Funds extends AddOnExtension
 {
     /**

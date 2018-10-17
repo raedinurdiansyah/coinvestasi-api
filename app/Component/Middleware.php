@@ -62,6 +62,9 @@ $this->add(function (S $request, R $response, callable $next) {
             $this['extension']->getAllAvailableExtensions()
         );
     }
+    if (function_exists('header_remove')) {
+        header_remove('X-Powered-By');
+    }
 
     return $next(
         $request->withAddedHeader(
