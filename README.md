@@ -109,3 +109,6 @@ on working directory
 
 `config.production.php` is prior config override of `config.php`
 
+## NOTE INSTALLATION
+
+Please make sure install composer with dev dependencies to allow `phpcs` installed.
