@@ -5,7 +5,6 @@ namespace ArrayIterator\Coinvestasi\Extensions\Conferences;
 
 use ArrayIterator\Coinvestasi\Core\AddOnExtension;
 use ArrayIterator\Coinvestasi\Core\Application;
-use ArrayIterator\Coinvestasi\Core\Generator\JsonPatent;
 use ArrayIterator\Extension\ExtensionInfo;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
