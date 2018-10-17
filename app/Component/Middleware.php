@@ -53,6 +53,15 @@ $this->add(function (S $request, R $response, callable $next) {
         )->withHeader(
             'X-Robots-Tag',
             'noindex, nofollow, noodp, noydir'
+        )->withAddedHeader(
+            'Access-Control-Allow-Origin',
+            '*'
+        )->withAddedHeader(
+            'Access-Control-Allow-Methods',
+            'POST, OPTIONS, GET'
+        )->withAddedHeader(
+            'Access-Control-Request-Headers',
+            'Content-Type, X-PINGOTHER, Data-Type'
         )
     );
 });
