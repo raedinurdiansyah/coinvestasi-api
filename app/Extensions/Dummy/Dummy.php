@@ -13,9 +13,9 @@ use Psr\Http\Message\ServerRequestInterface;
  * Class DummyAPI
  * @package ArrayIterator\Coinvestasi\Extensions\DummyAPI
  * example object to get api result for :
- * http://domainapi/dummyapi(/.+)?
+ * http://domainapi/dummy(/.+)?
  */
-class DummyAPI extends AddOnExtension
+class Dummy extends AddOnExtension
 {
     public function addRouteGroup(Application $app)
     {
