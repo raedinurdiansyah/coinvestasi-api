@@ -46,6 +46,7 @@ return new Container([
         $settings = $container['settings'];
         if (empty($settings['cache']) || !is_array($settings['cache'])
             || !isset($settings['cache']['driver'])
+            || empty($settings['cache']['driver'])
         ) {
             $config = [
                 'driver' => Cache::FILE_SYSTEM,

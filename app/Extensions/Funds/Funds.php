@@ -10,21 +10,18 @@ use ArrayIterator\Extension\ExtensionInfo;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-/**
- * Class Conferences
- * @package ArrayIterator\Coinvestasi\Extensions\Conferences
- */
-class Conferences extends AddOnExtension
+
+class Funds extends AddOnExtension
 {
     /**
      * @var string
      */
-    protected $extensionName = 'Conferences';
+    protected $extensionName = 'Funds';
 
     /**
      * @var string
      */
-    protected $extensionDescription = 'Conferences API';
+    protected $extensionDescription = 'Funds API';
 
     /**
      * @param ExtensionInfo $info
@@ -40,10 +37,6 @@ class Conferences extends AddOnExtension
      */
     public function addRouteGroup(Application $a)
     {
-        $a->get('[/]', function (ServerRequestInterface $request, ResponseInterface $r) {
-            $token = new TokenPal();
-            return JsonPatent::success($r, $token->getData());
-        });
     }
 
     /**
