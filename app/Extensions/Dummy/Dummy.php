@@ -10,7 +10,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
- * Class DummyAPI
+ * Class Dummy
  * @package ArrayIterator\Coinvestasi\Extensions\DummyAPI
  * example object to get api result for :
  * http://domainapi/dummy(/.+)?

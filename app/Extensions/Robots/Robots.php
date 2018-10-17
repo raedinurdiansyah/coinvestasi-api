@@ -9,6 +9,10 @@ use ArrayIterator\Extension\ExtensionInfo;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
+/**
+ * Class Robots
+ * @package ArrayIterator\Coinvestasi\Extensions\Conferences
+ */
 class Robots extends AddOnExtension
 {
     /**

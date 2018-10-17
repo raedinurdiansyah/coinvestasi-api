@@ -10,6 +10,11 @@ use ArrayIterator\Extension\ExtensionInfo;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
+/**
+ * Class Funds
+ * @package ArrayIterator\Coinvestasi\Extensions\Conferences
+ * @todo completion
+ */
 class Funds extends AddOnExtension
 {
     /**

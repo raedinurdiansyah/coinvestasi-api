@@ -32,6 +32,8 @@ class TokenPal
     }
 
     /**
+     * Processing data
+     *
      * @return array
      */
     protected function process() : array
@@ -81,10 +83,17 @@ class TokenPal
             ];
         });
 
+        $pageCrawler->clear();
+        unset($pageCrawler);
         $cache->save($keyCache, $conferences, 3600);
         return $conferences;
     }
 
+    /**
+     * Get data from URL To scrapping API
+     *
+     * @return string
+     */
     protected function getDataURI() : string
     {
         if ($this->count > 5) {
