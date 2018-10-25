@@ -139,6 +139,7 @@ class Calendar extends ApiGroup
                 ) {
                     return [];
                 }
+
                 return $cachedData;
             }
 
@@ -264,12 +265,12 @@ class Calendar extends ApiGroup
                 'date'      => $date->format('Y-m-d H:i:s')
             ],
             'utc' => [
-                'timezone' => $utc->getTimezone()->getName(),
+                'timezone'  => $utc->getTimezone()->getName(),
                 'timestamp' => $utc->getTimestamp(),
                 'date'      => $utc->format('Y-m-d H:i:s')
             ],
             'jakarta' => [
-                'timezone'   => $jkt->getTimezone()->getName(),
+                'timezone'  => $jkt->getTimezone()->getName(),
                 'timestamp' => $jkt->getTimestamp(),
                 'date'      => $jkt->format('Y-m-d H:i:s')
             ]
