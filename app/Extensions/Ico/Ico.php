@@ -9,7 +9,6 @@ use ArrayIterator\Coinvestasi\Extensions\Ico\Routes\Calendar;
 use ArrayIterator\Extension\ExtensionInfo;
 use Slim\App;
 
-
 /**
  * Class Ico
  * @package ArrayIterator\Coinvestasi\Extensions\Ico
