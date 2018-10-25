@@ -22,6 +22,7 @@ use Wa72\HtmlPageDom\HtmlPageCrawler;
 class Calendar extends ApiGroup
 {
     const URI = 'https://cointelegraph.com/ico-calendar';
+    const CACHE_EXPIRE = 10800;
 
     /**
      * @var int
@@ -173,7 +174,7 @@ class Calendar extends ApiGroup
         }
 
         // save cache
-        $cache->save($keyCache, $this->data, 3600*24);
+        $cache->save($keyCache, $this->data, self::CACHE_EXPIRE);
         return $this->data;
     }
 
