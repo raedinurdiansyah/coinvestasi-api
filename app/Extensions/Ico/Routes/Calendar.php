@@ -187,6 +187,7 @@ class Calendar extends ApiGroup
             'title',
             'website',
             'site',
+            'lead',
             'start_date',
             'end_date',
             'img',
