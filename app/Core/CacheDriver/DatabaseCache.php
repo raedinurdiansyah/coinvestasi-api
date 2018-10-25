@@ -95,7 +95,22 @@ class DatabaseCache extends CacheProvider
             $item[self::DATA_FIELD] = stream_get_contents($item[self::DATA_FIELD]);
         }
 
-        return unserialize($item[self::DATA_FIELD]);
+        if (!is_string($item[self::DATA_FIELD])
+            || trim($item[self::DATA_FIELD]) === ''
+        ) {
+            return false;
+        }
+
+        $item = strpos($item[self::DATA_FIELD], ';') !== false
+                || strpos($item[self::DATA_FIELD], '{')
+            ? $item[self::DATA_FIELD]
+            : base64_decode($item[self::DATA_FIELD]);
+        if ($item !== 'b:0;' && ($item = @unserialize($item)) === false) {
+            $this->doDelete($id);
+            return false;
+        }
+
+        return $item;
     }
 
     /**
@@ -127,23 +142,31 @@ class DatabaseCache extends CacheProvider
         if (!empty($di[$selector])) {
             $stmt->closeCursor();
             $qb->update($this->table)
-                ->set($dataSelector, ':data')
-                ->set($exp, ':expire')
-                ->where(sprintf('%s=:id', $selector));
+               ->set($dataSelector, ':data')
+               ->set($exp, ':expire')
+               ->where(sprintf('%s=:id', $selector));
         } else {
             $qb->insert($this->table)
-                ->setValue($selector, ':id')
-                ->setValue($dataSelector, ':data')
-                ->setValue($exp, ':expire');
+               ->setValue($selector, ':id')
+               ->setValue($dataSelector, ':data')
+               ->setValue($exp, ':expire');
         }
 
         $qb->setParameters([
             ':id' => $id,
-            ':data' => serialize($data),
-            ':expire' => $lifeTime > 0 ? time() + $lifeTime : null
+            ':data' => base64_encode(serialize($data)),
+            ':expire' => $lifeTime > 0 ? $this->currentTime() + $lifeTime : null
         ]);
 
         return (bool) $qb->execute();
+    }
+
+    /**
+     * @return false|int
+     */
+    protected function currentTime()
+    {
+        return strtotime(gmdate('Y-m-d H:i:s'));
     }
 
     /**
@@ -152,12 +175,11 @@ class DatabaseCache extends CacheProvider
     protected function doDelete($id)
     {
         list($idField) = $this->getFields();
-
         $qb = $this->connection->createQueryBuilder();
         $qb->delete(
             $this->table
         )->where(sprintf('%s=:id', $idField))
-         ->setParameter(':id', $id);
+           ->setParameter(':id', $id);
         return (bool) $qb->execute();
     }
 
@@ -191,8 +213,8 @@ class DatabaseCache extends CacheProvider
      */
     private function findById($id, bool $includeData = true)
     {
-        list($idField) = $fields = $this->getFields();
-
+        $fields = $this->getFields();
+        list($idField) = $fields;
         if (!$includeData) {
             $key = array_search(static::DATA_FIELD, $fields);
             unset($fields[$key]);
@@ -200,19 +222,21 @@ class DatabaseCache extends CacheProvider
         $stmt = $this
             ->connection
             ->createQueryBuilder()
-            ->select(implode(',', $fields))
+            ->select(implode(', ', $fields))
             ->from($this->table)
             ->where(sprintf('%s=:id', $idField))
             ->setParameter(':id', $id)
-            ->setMaxResults('1')
-            ->execute();
+            ->setMaxResults('1');
+        $stmt = $stmt->execute();
         if (!$stmt || !($item = $stmt->fetch(\PDO::FETCH_ASSOC))) {
             if ($stmt) {
                 $stmt->closeCursor();
             }
             return null;
         }
-
+        if (empty($item)) {
+            return null;
+        }
         if ($this->isExpired($item)) {
             $this->doDelete($id);
 
@@ -242,7 +266,15 @@ class DatabaseCache extends CacheProvider
     private function isExpired(array $item) : bool
     {
         return isset($item[static::EXPIRATION_FIELD]) &&
-               $item[self::EXPIRATION_FIELD] !== null &&
-               $item[self::EXPIRATION_FIELD] < time();
+               (
+                   $item[self::EXPIRATION_FIELD] !== null
+                   && (
+                       ! is_numeric($item[self::EXPIRATION_FIELD])
+                       || (
+                           abs($item[static::EXPIRATION_FIELD]) !== 0
+                           && abs($item[self::EXPIRATION_FIELD]) <= $this->currentTime()
+                       )
+                   )
+               );
     }
 }

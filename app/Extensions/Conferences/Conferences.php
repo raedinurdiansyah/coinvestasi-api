@@ -45,12 +45,4 @@ class Conferences extends AddOnExtension
             return JsonPatent::success($r, $token->getData());
         });
     }
-
-    /**
-     * Prepare Construct
-     */
-    protected function prepare()
-    {
-        $this->registerObjectAutoloader();
-    }
 }

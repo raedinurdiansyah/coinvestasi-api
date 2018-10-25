@@ -32,13 +32,20 @@ class ApiGroup
     public function __invoke(App $slim)
     {
         $container = $slim->getContainer();
-        $container['slim']  = function () use (&$slim) {
-            return $slim;
-        };
-        $c =& $this;
-        $container['api'] = function () use (&$c) : ApiGroup {
-            return $c;
-        };
+        if (get_class($this) === __CLASS__) {
+            if (!isset($container['slim'])) {
+                $container['slim'] = function () use (&$slim) {
+                    return $slim;
+                };
+            }
+            if (!isset($container['api'])) {
+                $c                =& $this;
+                $container['api'] = function () use (&$c) : ApiGroup {
+                    return $c;
+                };
+            }
+        }
+
         $this->prepare($container);
     }
 
