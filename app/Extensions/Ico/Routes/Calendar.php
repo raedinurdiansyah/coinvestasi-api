@@ -147,7 +147,7 @@ class Calendar extends ApiGroup
             unset($crawler);
             return $this->data;
         }
-        $attr = preg_replace('~(\"\s*\:\s*)\&qquot\;~', '$1"', $attr);
+        $attr = preg_replace('~(\"\s*\:\s*)\&[qlrd]quot\;~', '$1"', $attr);
         $attr = json_decode($attr, true);
         if (!is_array($attr) || empty($attr['items']) || !is_array($attr['items'])) {
             $crawler->clear();
