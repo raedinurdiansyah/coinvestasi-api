@@ -61,9 +61,17 @@ class Calendar extends ApiGroup
         ServerRequestInterface $request,
         ResponseInterface $response
     ) : ResponseInterface {
+        $data = $this->getData();
+        if (empty($data)) {
+            return JsonPatent::errorCode(
+                $response,
+                'No Data Can Be Serve',
+                417
+            );
+        }
         return JsonPatent::success(
             $response,
-            $this->getData()
+            $data
         );
     }
 
@@ -125,6 +133,12 @@ class Calendar extends ApiGroup
                 && is_array($cachedData['past'])
                 && is_array($cachedData['upcoming'])
             ) {
+                if (empty($cachedData['ongoing'])
+                    && empty($cachedData['past'])
+                    && empty($cachedData['upcoming'])
+                ) {
+                    return [];
+                }
                 return $cachedData;
             }
 
@@ -133,7 +147,7 @@ class Calendar extends ApiGroup
 
         $data = $this->getDataURI();
         if ($data === '') {
-            return $this->data;
+            return [];
         }
 
         $data = HtmlPageCrawler::create($data);
@@ -144,17 +158,17 @@ class Calendar extends ApiGroup
             || trim($attr) === ''
         ) {
             $crawler->clear();
-            $cache->save($keyCache, $this->data, 30);
+            $cache->save($keyCache, $this->data, 5);
             unset($crawler);
-            return $this->data;
+            return [];
         }
         $attr = preg_replace('~(\"\s*\:\s*)\&[qlrd]quot\;~', '$1"', $attr);
         $attr = json_decode($attr, true);
         if (!is_array($attr) || empty($attr['items']) || !is_array($attr['items'])) {
             $crawler->clear();
             unset($attr);
-            $cache->save($keyCache, $this->data, 30);
-            return $this->data;
+            $cache->save($keyCache, $this->data, 5);
+            return [];
         }
         $attr = $attr['items'];
         foreach ($this->data as $key => &$v) {
